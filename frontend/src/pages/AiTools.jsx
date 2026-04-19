@@ -15,8 +15,8 @@ export default function AiTools() {
   const isAdmin = user.role === 'admin';
 
   const load = () => {
-    api.getAiTools(filter || undefined).then(setItems);
-    api.getCategories().then(setCategories);
+    api.getAiTools(filter || undefined).then(d => setItems(Array.isArray(d) ? d : []));
+    api.getCategories().then(d => setCategories(Array.isArray(d) ? d : []));
   };
   useEffect(() => { load(); }, [filter]);
 
