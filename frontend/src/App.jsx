@@ -9,10 +9,12 @@ export default function App() {
     const saved = sessionStorage.getItem('user');
     return saved ? JSON.parse(saved) : null;
   });
+  const [showLogin, setShowLogin] = useState(false);
 
   const handleLogin = (u) => {
     sessionStorage.setItem('user', JSON.stringify(u));
     setUser(u);
+    setShowLogin(false);
   };
 
   const handleLogout = () => {
@@ -20,23 +22,26 @@ export default function App() {
     setUser(null);
   };
 
-  if (!user) return <Login onLogin={handleLogin} />;
-
   return (
     <BrowserRouter>
       <nav>
-        <Link to="/">Categories</Link>
-        <Link to="/ai-tools">AI Tools</Link>
+        <Link to="/">AI Tools</Link>
+        <Link to="/categories">Categories</Link>
         <span className="nav-right">
-          {user.username} <button className="btn-secondary" onClick={handleLogout}>Logout</button>
+          {user ? (
+            <>{user.username} <button className="btn-secondary" onClick={handleLogout}>Logout</button></>
+          ) : (
+            <button className="btn-primary" onClick={() => setShowLogin(true)}>Login</button>
+          )}
         </span>
       </nav>
       <div className="container">
         <Routes>
-          <Route path="/" element={<Categories />} />
-          <Route path="/ai-tools" element={<AiTools />} />
+          <Route path="/" element={<AiTools />} />
+          <Route path="/categories" element={<Categories />} />
         </Routes>
       </div>
+      {showLogin && <Login onLogin={handleLogin} onClose={() => setShowLogin(false)} />}
     </BrowserRouter>
   );
 }

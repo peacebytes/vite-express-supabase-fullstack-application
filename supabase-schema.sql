@@ -33,10 +33,9 @@ CREATE TABLE ai_tools (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Seed admin user (password: "SPRINGc@n@d4" and "SPRINGcanada", bcrypt hashes)
+-- Seed admin user (password: "admin", bcrypt hash)
 INSERT INTO users (username, password_hash, role) VALUES
-  ('admin', '$2b$10$2yKpvL2Ft9py1Bmt8Mfp.ef4IorHcNBAIwcYF203r8Z1ytSdwOseS', 'admin'),
-  ('user', '$2b$10$Ppasqa23l7okdPJzYTMHC.Wz68eoEql2SnF23G0NHLcksxs0PkyE2', 'readonly');
+  ('admin', '$2b$10$36LpPDhfZNuyEnPMk5tl5uh0QzNsFUsUKWlOT627Mp5Wi6RcYXisy', 'admin');
 
 -- Seed categories
 INSERT INTO categories (name, description, business_size) VALUES
